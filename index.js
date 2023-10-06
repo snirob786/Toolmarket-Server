@@ -155,7 +155,7 @@ async function run() {
     });
 
     app.get("/blogs", async (req, res) => {
-      const blogs = await toolmarketBlogsCollection.find().toArray();
+      const blogs = await toolmarketBlogsCollection.find().sort({ "order": 1 }).toArray();
       res.send(blogs);
     });
 
@@ -201,7 +201,6 @@ async function run() {
       const toolDetails = await toolmarketToolsCollection.findOne({
         _id: ObjectId(productId),
       });
-      console.log(toolDetails.availableQuan);
       const updatedAvaialbelQuan = toolDetails.availableQuan - orderAmount;
       const updateDoc = {
         $set: { availableQuan: updatedAvaialbelQuan },
